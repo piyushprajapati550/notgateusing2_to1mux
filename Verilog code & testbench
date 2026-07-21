@@ -1,0 +1,43 @@
+
+`timescale 1ns / 1ps
+module mux_2to1(I0,I1,S,Y);
+input I0,I1,S;
+output Y;
+wire w1,w2,w3;
+//gate formation:
+not g1 (w1,S);
+and g2(w2,w1,I0);
+and g3(w3,I1,S);
+or (Y,w2,w3);
+endmodule
+
+
+`timescale 1ns / 1ps
+
+module notgateusing2_to1mux( A,Y );
+input A;
+output Y;
+ mux_2to1 uut (.I0(1'b1),.I1(1'b0),.S(A),.Y(Y));
+endmodule
+
+
+TESTBENCH
+
+
+`timescale 1ns / 1ps
+
+
+module notgateusingmux_tb;
+reg A;
+wire Y;
+
+// instatiation
+ notgateusing2_to1mux uut (.A(A),.Y(Y));
+ initial
+ begin
+ A=0;#10;
+ A=1;#10;
+  
+  $finish; #10;
+  end
+endmodule
